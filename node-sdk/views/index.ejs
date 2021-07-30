@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <script src="http://127.0.0.1:13004/socket.io/socket.io.js"></script>
+    <script>
+      //서버에 접속하기
+      var socket = io.connect('http://127.0.0.1:13004');
+      //console.log(socket);
+      socket.on('connect', function() {  // 서버에 접속이 되면
+        socket.on('subscribe', function(event) { //서버에서 이벤트가 오면
+          if(event.event === 'updateOwner') {
+            alert(`${JSON.stringify(event.data)}가 변경되었습니다.`);
+          }
+          else if(event.event === 'createCar') {
+            alert(`${JSON.stringify(event.data)}가 등록되었습니다.`);
+          }
+          else if(event.event === 'deleteCar') {
+            alert(`${JSON.stringify(event.data)}가 삭제되었습니다.`);
+          }
+        });
+      });
+    </script>
+  </head>
+
+  <body>
+    <a href="/insert">couchDB에 추가하기</a>
+    <a href="/select">couchDB에 조회하기</a>
+    <hr />
+
+    <div id="output" style="border: 1px solid #cccccc;">
+      <h4>여기는 이벤트가 발생할 때 자동으로 표시되는 곳입니다.</h4>
+    </div>
+    <hr />
+
+    <form action="/enrollAdmin" method="post">
+      <input type = "submit" value="1. 인증기관(CA) admin 등록" />
+    </form>
+    <hr />
+
+    <form action="/registerUser" method="post">
+      <input type = "text" name="userid" placeholder="등록할 사용자 아이디" />
+      <input type = "submit" value="2. 인증기관(CA) user 등록" />
+    </form>
+    <hr />
+
+    <form action="/removeUser" method="post">
+      <input type = "text" name="userid" placeholder="삭제할 사용자 아이디" />
+      <input type = "submit" value="3. 인증기관(CA) user 삭제" />
+    </form>
+    <hr />
+
+    <form action="/createCar" method="post">
+      USERID : <input type="text" name="userid" />
+      KEY  : <input type="text" name="key" />
+      색상 : <input type="text" name="color" /><br />
+      제조사 : <input type="text" name="make" />
+      모델 : <input type="text" name="model" />
+      소유자 : <input type="text" name="owner" />
+      <input type = "submit" value="4. createCar 호출" />
+    </form>
+    <hr />
+
+    <form action="/readAllCar" method="get">
+      USERID : <input type="text" name="userid" />
+      <input type="submit" value="5. readAllCar 호출" />
+    </form>
+    <hr />
+
+    <form action="/deleteCar" method="post">
+      <input type = "text" name="userid" placeholder="사용자 아이디" />
+      <input type = "text" name="car" placeholder="삭제할 차량 KEY" />
+      <input type = "submit" value="6. deleteCar 호출" />
+    </form>
+    <hr />
+
+    <form action="/readQuerySelector" method="get">
+      <input type = "text" name="userid" placeholder="사용자 아이디" />
+      <input type = "text" name="make" placeholder="제조사 입력" />
+      <input type = "submit" value="7. readQuerySelector 호출" />
+    </form>
+    <hr />
+
+
+    <form action="/updateOwner" method="post">
+      <input type = "text" name="userid" placeholder="wallet 사용자 아이디" />
+      <input type = "text" name="car" placeholder="변경할 차량정보 KEY 입력" />
+      <input type = "text" name="owner" placeholder="변경할 소유자 입력" />
+      <input type = "submit" value="8. updateOwner 호출" />
+    </form>
+    <hr />
+
+    <form action="/retrieveHistory" method="get">
+      <input type = "text" name="userid" placeholder="사용자 아이디" />
+      <input type = "text" name="car" placeholder="차량번호 입력" />
+      <input type = "submit" value="9. retrieveHistory 호출" />
+    </form>
+    <hr />
+
+  </body>
+
+</html>

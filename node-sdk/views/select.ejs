@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <h3><%= title %></h3>
+    <hr />
+    개수 : <%= count %>
+    내용 : <br />
+    <% for(let tmp of rows) {%>
+      <%= tmp.id %>
+      <%= tmp.doc.name %>
+      <%= tmp.doc.age %>
+      <%= tmp.doc.phone %>
+      <br />
+    <% } %>        
+  </body>
+</html>

@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>차량목록</title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+  </head>
+  <body>
+    <% for(let tmp of rows) {%>
+      키 : <%= tmp.KEY %>
+      색상 : <%= tmp.VALUE.color %>
+      제조사 : <%= tmp.VALUE.make %>
+      모델 : <%= tmp.VALUE.model %>
+      소유자 : <%= tmp.VALUE.owner %>
+      <br />
+    <% } %>        
+  </body>
+</html>
